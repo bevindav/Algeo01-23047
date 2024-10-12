@@ -16,7 +16,7 @@ public class FileHandler {
             int colCount = 0;
 
             while (currentCol.hasNextDouble()){
-                colCount++;
+                colCount++; // Menambahkan jumlah kolom
                 currentCol.nextDouble();
             }
             currentCol.close();
@@ -24,20 +24,24 @@ public class FileHandler {
             if (this.row == 0){
                 this.col = colCount;
             }
-            this.row++;
+            this.row++; // Menambahkan jumlah baris
 
         }   
         this.mat = new double[this.row][this.col];
 
         // Membaca elemen-elemen matriks dari file
+        Scanner scanInsert = new Scanner(file);
         for (int i = 0; i < this.row; i ++){
             for (int j = 0; j < this.col; j ++){
-                if (scanFile.hasNextDouble()) {
-                    this.mat[i][j] = scanFile.nextDouble(); // Baca elemen matriks
+                if (scanInsert.hasNextDouble()) {
+                    this.mat[i][j] = scanInsert.nextDouble(); // Baca elemen matriks
                 }
             }
         }
+        scanInsert.close();
         scanFile.close(); // Tutup scanner
     }
 }
+
+
 
