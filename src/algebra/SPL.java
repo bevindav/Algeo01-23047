@@ -3,13 +3,13 @@ package algebra;
 import utils.MatrixUtils;
 
 public class SPL {
-    public boolean parametrik; // Pastikan variabel dideklarasikan
+    public boolean parametrik; 
     public double[][] parametrikA;
     public double[] parametrikB;
     public boolean tidakSolusi;
 
 
-   // Tambahkan pengecekan untuk kasus tidak ada solusi
+   // Tambahan pengecekan untuk kasus tidak ada solusi
    public double[] gauss(double[][] A, double[] B) {
     int N = B.length;
     boolean adaVariabelBebas = false; // Flag untuk cek variabel bebas
@@ -77,7 +77,6 @@ public class SPL {
 }
 
 
-// Modifikasi getParametricSolution untuk menggunakan parameter s, t, u
 private double[] getParametricSolution(double[][] A, double[] B) {
     this.parametrik = true;
     int N = B.length;
@@ -86,7 +85,7 @@ private double[] getParametricSolution(double[][] A, double[] B) {
     // Kasih nilai variabel bebas (misal 0 buat sementara) dan tanda dengan parameter
     for (int i = 0; i < N; i++) {
         if (A[i][i] != 0) {
-            solusi[i] = B[i];  // Variabel dengan koefisien nggak nol
+            solusi[i] = B[i];  // Variabel dengan koefisien tidak nol
         } else {
             // Tandai variabel bebas dengan nilai NaN untuk dideteksi di StringHasil
             solusi[i] = Double.NaN;
@@ -104,7 +103,7 @@ public String ParametrikStringHasil(double[][] A, double[] B) {
 
     for (int i = 0; i < N; i++) {
         if (A[i][i] != 0) {
-            // Jika koefisien utama tidak nol, tulis x_i = B[i] + ...
+            // Jika hasil tidak nol, tulis x(i+1) = B[i] + ...
             buffer.append("x" + (i + 1) + " = " + B[i]);
             for (int j = i + 1; j < N; j++) {
                 if (A[i][j] != 0) {
@@ -112,7 +111,7 @@ public String ParametrikStringHasil(double[][] A, double[] B) {
                 }
             }
             buffer.append("\n");
-        } else {
+        } else {   
             // Jika variabel bebas, tandai dengan parameter s, t, dst.
             buffer.append("x" + (i + 1) + " = " + param + "\n");
             param++;  // Pindah ke parameter berikutnya
@@ -140,7 +139,7 @@ public String StringHasil(double[] solusi){
         // Proses eliminasi Gauss-Jordan
         for (int k = 0; k < N; k++) {
             int max = k;
-            // Nyari elemen maksimum di kolom
+            // Mencari elemen maksimum di kolom
             for (int i = k + 1; i < N; i++) {
                 if (Math.abs(A[i][k]) > Math.abs(A[max][k])) {
                     max = i;
@@ -175,7 +174,7 @@ public String StringHasil(double[] solusi){
             }
         }
 
-        // Kalau nggak ada variabel bebas, hitung solusinya
+        // Kalau tidak ada variabel bebas, hitung solusinya
         if (!adaVariabelBebas) {
             for (int i = 0; i < N; i++) {
                 solusi[i] = B[i];
@@ -187,7 +186,7 @@ public String StringHasil(double[] solusi){
         return solusi;
     }
 
-    // Metode Cramer buat SPL (kalau bisa dihitung determinannya)
+    // Metode Cramer (kalau bisa dihitung determinannya)
     public double[] cramer(Matriks A, double[] B) {
         int N = A.getRow();
         double[] solusi = new double[N];
