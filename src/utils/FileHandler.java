@@ -12,7 +12,8 @@ public class FileHandler {
     public double [] xToPredict ; 
 
     public FileHandler(String filePath) throws FileNotFoundException {
-        File file = new File(filePath);
+        File parentdir = new File("..");
+        File file = new File(parentdir, filePath);
         Scanner scanFile = new Scanner(file);
         boolean isPredict = false;
         // Hitung jumlah baris dan kolom
@@ -77,7 +78,9 @@ public class FileHandler {
     }
 
     public static void FileWriter(String filePath, String string) throws IOException {
-        FileWriter file = new FileWriter(filePath);
+        File parentdir = new File ("..");
+        File theFile = new File(parentdir, filePath);
+        FileWriter file = new FileWriter(theFile);
         file.write(string);
         file.close();
         System.out.println("Penulisan sukses.");
