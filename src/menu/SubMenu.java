@@ -287,18 +287,9 @@ public class SubMenu {
             return;
         }
         if (choice==1){
-            double [] hasilReg = MultipleLinearRegression.regresiLinearGauss(m.mat);
-            double hasil = MultipleLinearRegression.prediksi(hasilReg, m.xToPredict[0]);
-            System.out.println(MultipleLinearRegression.StringHasil(hasilReg, hasil, m.xToPredict[0]));
-            AskToWrite(MultipleLinearRegression.StringHasil(hasilReg, hasil, m.xToPredict[0]));
-
+            System.out.println(MultipleLinearRegression.StringHasil(m));
+            AskToWrite(MultipleLinearRegression.StringHasil(m));
         } else if (choice==2){
-            for (int a=0;a<m.mat.length;a++){
-                for(int b=0;b<m.mat[a].length;b++){
-                    System.out.print(m.mat[a][b]+" ");
-                }
-                System.out.println();
-            }
             System.out.println(regresiKuadratikBerganda.StringHasil(m));
             AskToWrite(regresiKuadratikBerganda.StringHasil(m));
         }

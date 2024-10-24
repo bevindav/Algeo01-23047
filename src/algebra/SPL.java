@@ -1,13 +1,11 @@
 package algebra;
 
 import utils.MatrixUtils;
-
 public class SPL {
     public boolean parametrik; 
     public double[][] parametrikA;
     public double[] parametrikB;
     public boolean tidakSolusi;
-
 
    // Tambahan pengecekan untuk kasus tidak ada solusi
    public double[] gauss(double[][] A, double[] B) {
@@ -25,6 +23,7 @@ public class SPL {
                 max = i;
             }
         }
+
         // Tukar baris k dengan baris yang memiliki elemen maksimum
         MatrixUtils.swap_rows(A, k, max);
         double temp = B[k];
@@ -129,10 +128,10 @@ public String StringHasil(double[] solusi){
     return buffer.toString();
 }
 
-
     // Metode Gauss-Jordan buat nyari solusi SPL
     public double[] gaussJordan(double[][] A, double[] B) {
         int N = B.length;
+        boolean tidakAdaSolusi = false;   // Flag untuk cek jika tidak ada solusi
         boolean adaVariabelBebas = false;
         double[] solusi = new double[N];
 
@@ -151,10 +150,17 @@ public String StringHasil(double[] solusi){
             B[k] = B[max];
             B[max] = temp;
 
+            // Cek jika elemen pivot adalah nol
             // Normalisasi pivot
             double pivot = A[k][k];
-            if (pivot == 0) {
-                adaVariabelBebas = true;
+
+            if (Math.abs(pivot) < 1e-9) {
+                // Jika elemen pivot adalah nol dan nilai B[k] tidak nol, maka tidak ada solusi
+                if (Math.abs(B[k]) > 1e-9) {
+                    tidakAdaSolusi = true;
+                    break;
+                }
+                adaVariabelBebas = true; // Jika elemen pivot dan B[k] sama-sama nol, ada variabel bebas
                 continue;
             }
             for (int j = 0; j < N; j++) {
@@ -172,6 +178,10 @@ public String StringHasil(double[] solusi){
                     B[i] -= faktor * B[k];
                 }
             }
+        }
+        if (tidakAdaSolusi) {
+            this.tidakSolusi = true;
+            return null; // Tidak ada solusi
         }
 
         // Kalau tidak ada variabel bebas, hitung solusinya
