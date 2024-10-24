@@ -38,7 +38,7 @@ public class MultipleLinearRegression {
 
     // Fungsi untuk prediksi nilai y baru berdasarkan x baru
     public static double prediksi(double[] beta, double xBaru) {
-        return beta[0] + beta[1] * xBaru;  // Menggunakan β0 + β1 * xBaru
+        return beta[0] + beta[1] * xBaru;  
     }
 
     public static String StringHasil (double[] hasilReg, double pred, double xBaru){
