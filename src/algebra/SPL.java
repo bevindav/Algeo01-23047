@@ -1,19 +1,13 @@
 package algebra;
 
 import utils.MatrixUtils;
-
 public class SPL {
     public boolean parametrik; 
     public double[][] parametrikA;
     public double[] parametrikB;
     public boolean tidakSolusi;
 
-<<<<<<< HEAD
-   // Tambahkan pengecekan untuk kasus tidak ada solusi
-=======
-
    // Tambahan pengecekan untuk kasus tidak ada solusi
->>>>>>> d3951f12025a156b884f1a589bf582206439ef30
    public double[] gauss(double[][] A, double[] B) {
     int N = B.length;
     boolean adaVariabelBebas = false; // Flag untuk cek variabel bebas
