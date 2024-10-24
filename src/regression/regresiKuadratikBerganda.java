@@ -85,11 +85,11 @@ public class regresiKuadratikBerganda {
                 matX[i][j] /= divider;
             }
         }
-        /*for (int i=num;i<matX.length;i++){
+        for (int i=num;i<matX.length;i++){
             for (int j=0; j<matX[i].length;j++){
                 matX[i][j] /= divider;
             }
-        }*/
+        }
         for (int i=0;i<matX.length;i++){
             for (int j=num; j<matX[i].length;j++){
                 matX[i][j] /= divider;
@@ -115,9 +115,9 @@ public class regresiKuadratikBerganda {
         for (int i=0;i<matY.length;i++){
             matY[i] /= divider;
         }
-        /*for (int i=num;i<matY.length;i++){
+        for (int i=num;i<matY.length;i++){
             matY[i] /= divider;
-        }*/
+        }
         return matY;
     }
 
