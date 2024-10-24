@@ -33,6 +33,7 @@ Setelah proyek berhasil diclone, aplikasi dapat dijalankan dengan cara berikut:
 
 ## Technologies Used
 Java: Bahasa pemrograman utama yang digunakan untuk implementasi seluruh fitur.
+
 GitHub : Digunakan untuk berkolaborasi.
 
 ## License
@@ -40,6 +41,7 @@ Proyek ini dilisensikan di bawah lisensi MIT. Lihat file LICENSE untuk informasi
 
 ## Contact
 Indah Novita Tangdililing	
+
 13523047@std.stei.itb.ac.id
 
 
