@@ -2,29 +2,54 @@ package interpolation;
 import algebra.SPL;
 
 public class PolynomialInt {
+    public static double interpolasi(double[][] titik, double[] xToPred) {
+        int n = titik.length - 1; // Derajat polinom berdasarkan jumlah titik yang diberikan
+        double[][] A = new double[n + 1][n + 1]; // Matriks untuk menyimpan koefisien
+        double[] B = new double[n + 1]; // Array untuk menyimpan hasil
 
-    // Fungsi interpolasi menggunakan eliminasi Gauss
-    public static double interpolasiGauss(double[][] A, double[] B, double titik) {
-        SPL solver = new SPL(); // objek dari kelas SPL
-        solver.gauss(A, B); // Menyelesaikan SPL dengan eliminasi Gauss
+        // Mengisi matriks A dan vektor B berdasarkan titik yang diberikan
+        for (int i = 0; i <= n; i++) {
+            double x = titik[i][0];
+            double y = titik[i][1];
+            B[i] = y;
 
-        // Menampilkan persamaan polinomial yang diperoleh
-        System.out.println("Persamaan polinomial: y = " + B[0] + " + " + B[1] + "x + " + B[2] + "x^2");
+            // Mengisi baris ke-i pada matriks A
+            for (int j = 0; j <= n; j++) {
+                A[i][j] = Math.pow(x, j); // Mengisi dengan x^j
+            }
+        }
 
-        // Menghitung nilai polinom di x yang diestimasi
-        return B[0] + B[1] * titik + B[2] * Math.pow(titik, 2);
-    }
-
-    // Fungsi interpolasi menggunakan eliminasi Gauss-Jordan
-    public static double interpolasiGaussJordan(double[][] A, double[] B, double titik) {
+        // Menyelesaikan SPL dengan metode Gauss untuk mendapatkan koefisien polinomial
         SPL solver = new SPL();
-        solver.gaussJordan(A, B); // Menyelesaikan SPL dengan eliminasi Gauss-Jordan
+        double[] solusi = solver.gauss(A, B); 
 
-        // Menampilkan persamaan polinomial yang diperoleh
-        System.out.println("Persamaan polinomial: y = " + B[0] + " + " + B[1] + "x + " + B[2] + "x^2");
+        // Membuat persamaan polinomial
+        StringBuilder persamaan = new StringBuilder();
+        persamaan.append("Persamaan polinomial: y = ");
+        for (int i = 0; i <= n; i++) {
+            if (i > 0 && solusi[i] >= 0) {
+                persamaan.append(" + ");
+            } else if (solusi[i] < 0) {
+                persamaan.append(" ");
+                solusi[i] = solusi[i]; 
+            }
+            persamaan.append(solusi[i]);
+            if (i > 0) {
+                persamaan.append("x");
+                if (i > 1) {
+                    persamaan.append("^").append(i);
+                }
+            }
+        }
+        System.out.println(persamaan.toString());
 
         // Menghitung nilai polinom di x yang diestimasi
-        return B[0] + B[1] * titik + B[2] * Math.pow(titik, 2);
-    }
+        double YPred = 0;
+        for (int i = 0; i <= n; i++) {
+            YPred += solusi[i] * Math.pow(xToPred[0], i);
+        }
 
+        // Mengembalikan hasil prediksi
+        return YPred;
+    }
 }

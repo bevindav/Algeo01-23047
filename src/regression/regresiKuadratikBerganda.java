@@ -33,8 +33,8 @@ public class regresiKuadratikBerganda {
             hasilSample[i][0] = file.mat[SampleNum][0] * file.mat[SampleNum][1];
             i++;
         } else {
-            for (int j = 0; j < general.nCr(num, 2) - 1; j++) {
-                for (int k = j + 1; k < general.nCr(num, 2); k++) {
+            for (int j = 0; j < num - 1; j++) {
+                for (int k = j + 1; k < num; k++) {
                     hasilSample[0][i] = file.mat[SampleNum][j] * file.mat[SampleNum][k];
                     hasilSample[i][0] = file.mat[SampleNum][j] * file.mat[SampleNum][k];
                     i++;
@@ -112,7 +112,8 @@ public class regresiKuadratikBerganda {
         double[] peubah = new double[1 + 2 * num + general.nCr(num, 2)];
         double hasilPrediksi = 0;
         
-        int k = 0;
+        int k = 1;
+        peubah[0] = 1;
         // Menyusun peubah linear
         for (int j = 0; j < num; j++) {
             peubah[k] = xk[j];
@@ -162,11 +163,7 @@ public class regresiKuadratikBerganda {
         }
 
         // Menambahkan fungsi regresi dengan koefisien yang sudah dihitung
-        buffer.append("f(");
-        for (j = 1; j < num; j++) {
-            buffer.append("x" + j + ", ");
-        }
-        buffer.append("x" + num + ") = " + koefisien[0]); // Konstanta
+        buffer.append("f(x) = " + koefisien[0]); // Konstanta
         // Menambahkan sisa koefisien untuk variabel
         for (j = 1; j < koefisien.length; j++) {
             if(koefisien[j]>=0){
@@ -175,6 +172,9 @@ public class regresiKuadratikBerganda {
                 buffer.append(" " + koefisien[j] + "x" + j);
             }
         }
+        buffer.append(", f(xk) = "+prediksi(koefisien, file.xToPredict));
         return buffer.toString(); // Mengembalikan string keseluruhan
     }
 }
+
+

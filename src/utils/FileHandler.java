@@ -65,6 +65,7 @@ public class FileHandler {
                     for (int j=0; j<colCount; j++){
                         this.xToPredict[j] = currentCol.nextDouble();
                     }
+                this.row--;
             } else {
                 for (int j = 0; j < colCount; j++){
                     this.mat[i][j] = currentCol.nextDouble();

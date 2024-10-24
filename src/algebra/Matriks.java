@@ -28,7 +28,7 @@ public class Matriks {
     }
 
     // Konstruktor matriks dari input (keyboard)
-    public Matriks(int row, int col) {
+    public Matriks(int row, int col, int code) {
         this.row = row;
         this.col = col;
         this.mat = new double[row][col];
@@ -45,7 +45,30 @@ public class Matriks {
                 this.mat[i][j] = input.nextDouble();
             }
         }
-        input.close();
+        if (code==5){
+            System.out.println("Masukkan elemen x fungsi yang dicari:");
+            this.xToPredict = new double[2];
+            for(int i=0; i<2; i++){
+                System.out.print("Elemen [" + i + "]: ");
+                while (!input.hasNextDouble()) {
+                    System.out.println("Harap masukkan angka.");
+                    input.next(); // Buang input yang tidak valid
+                }
+                this.xToPredict[i] = input.nextDouble();
+            }
+        } else if (code==6){
+            System.out.println("Masukkan elemen x fungsi yang dicari:");
+            this.xToPredict = new double[this.col-1];
+            for(int i=0; i<xToPredict.length; i++){
+                System.out.print("X [" + i + "]: ");
+                while (!input.hasNextDouble()) {
+                    System.out.println("Harap masukkan angka.");
+                    input.next(); // Buang input yang tidak valid
+                }
+                this.xToPredict[i] = input.nextDouble();
+            }
+        }
+        
     }
 
     // Menulis matriks ke konsol
@@ -60,7 +83,7 @@ public class Matriks {
 
     // Kofaktor
     public Matriks kofaktor(int p, int q) {
-        Matriks submatriks = new Matriks(row - 1, col-1);
+        Matriks submatriks = new Matriks(row - 1, col-1, 1);
         int row = 0, col = 0;
 
         // Loop untuk membentuk submatriks dengan mengabaikan baris ke-p dan kolom ke-q

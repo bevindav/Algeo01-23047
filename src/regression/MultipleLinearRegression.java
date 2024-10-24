@@ -1,7 +1,6 @@
 package regression;
 
 import algebra.SPL;
-import algebra.Matriks;
 
 public class MultipleLinearRegression {
 
@@ -28,45 +27,25 @@ public class MultipleLinearRegression {
     }
 
     // Fungsi regresi linear menggunakan Gauss
-    public static double[] regresiLinearGauss(double[][] X, double[] Y) {
+    public static double[] regresiLinearGauss(double[][] titikSampel) {
+        double [][] X = ubahInputMenjadiMatriks(titikSampel);
+        double[] Y = pisahkanNilaiY(titikSampel);
         SPL solver = new SPL();
         solver.gauss(X, Y);  // Menggunakan eliminasi Gauss untuk SPL
         return Y;  // Y berisi koefisien β setelah eliminasi Gauss
     }
 
-    // Fungsi regresi linear menggunakan Gauss-Jordan
-    public static double[] regresiLinearGaussJordan(double[][] X, double[] Y) {
-        SPL solver = new SPL();
-        solver.gaussJordan(X, Y);  // Menggunakan eliminasi Gauss-Jordan untuk SPL
-        return Y;  // Y berisi koefisien β setelah eliminasi Gauss-Jordan
-    }
-
-    // Fungsi regresi linear menggunakan Metode Cramer
-    public static double[] regresiLinearCramer(double[][] X, double[] Y) {
-        Matriks matriksX = new Matriks(X.length, X[0].length, true);
-        for (int i = 0; i < X.length; i++) {
-            for (int j = 0; j < X[0].length; j++) {
-                matriksX.mat[i][j] = X[i][j];
-            }
-        }
-        SPL solver = new SPL();
-        return solver.cramer(matriksX, Y);  // Menggunakan metode Cramer
-    }
-
-    // Fungsi regresi linear menggunakan Matriks Invers
-    public static double[] regresiLinearInverse(double[][] X, double[] Y) {
-        Matriks matriksX = new Matriks(X.length, X[0].length, true);
-        for (int i = 0; i < X.length; i++) {
-            for (int j = 0; j < X[0].length; j++) {
-                matriksX.mat[i][j] = X[i][j];
-            }
-        }
-        return SPL.splbalikan(matriksX, Y);  // Menggunakan metode invers
-    }
 
     // Fungsi untuk prediksi nilai y baru berdasarkan x baru
     public static double prediksi(double[] beta, double xBaru) {
         return beta[0] + beta[1] * xBaru;  // Menggunakan β0 + β1 * xBaru
+    }
+
+    public static String StringHasil (double[] hasilReg, double pred, double xBaru){
+        StringBuilder buffer = new StringBuilder(); // Membuat string baru
+        buffer.append("f(x) = "+hasilReg[0]+" + "+hasilReg[1]+" x, f("+xBaru+") = "+pred);
+        return buffer.toString();
+
     }
 
     // public static void main(String[] args) {

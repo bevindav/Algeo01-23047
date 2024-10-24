@@ -70,4 +70,10 @@ public class Determinan {
 
         return det;
     }
+
+    public static String StringHasil(double det){
+        StringBuilder buffer = new StringBuilder(); // Membuat string baru
+        buffer.append("Determinan matriks = " + det);
+        return buffer.toString(); // Mengembalikan string keseluruhan
+    }
 }

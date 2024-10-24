@@ -4,7 +4,7 @@ import algebra.SPL;
 
 public class BicubicSplineInt {
 
-    public static void bicubicInterpolation(double[][] inputMatrix, double a, double b) {
+    public static double bicubicInterpolation(double[][] inputMatrix, double a, double b) {
         // Membentuk matriks X (16x16)
         double[][] X = new double[16][16];
         for (int i = 0; i < 16; i++) {
@@ -24,8 +24,8 @@ public class BicubicSplineInt {
         }
 
         // Menggunakan SPL untuk menyelesaikan sistem persamaan linear
-        SPL splSolver = new SPL();
-        splSolver.gauss(X, B); // Memanggil metode gauss untuk memodifikasi B
+        SPL solv = new SPL();
+        double[] hasil  = solv.gauss(X, B); // Memanggil metode gauss untuk memodifikasi B
 
         // Setelah pemanggilan gauss, array B telah berisi solusi
         // Menghitung f(a, b)
@@ -33,11 +33,16 @@ public class BicubicSplineInt {
         for (int i = 0; i < 16; i++) {
             int xi = i % 4;
             int yi = i / 4;
-            result += B[i] * Math.pow(a, xi) * Math.pow(b, yi);
+            result += hasil[i] * Math.pow(a, xi) * Math.pow(b, yi);
         }
 
-        // Menampilkan hasil
-        System.out.printf("Nilai interpolasi bicubic f(%.2f, %.2f) adalah %.4f%n", a, b, result);
+        return result;
+    }
+    public static String StringHasil(double[][] inputMatrix, double a, double b){
+        StringBuilder buffer = new StringBuilder(); // Membuat string baru
+        double res = bicubicInterpolation(inputMatrix, a, b);
+        buffer.append("f("+a+","+b+") = "+res);
+        return buffer.toString();
     }
 }
 

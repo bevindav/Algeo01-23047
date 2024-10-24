@@ -54,4 +54,15 @@ public class Inverse {
     
         return invers;
     }
+
+    public static String StringHasil(double[][] inv){
+        StringBuilder buffer = new StringBuilder();
+        for (int i=0; i<inv.length;i++){
+            for(int j=0;j<inv[i].length;j++){
+                buffer.append(inv[i][j]+ " ");
+            }
+            buffer.append("\n");
+        }
+        return buffer.toString();
+    }
 }
