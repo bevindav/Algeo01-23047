@@ -61,10 +61,80 @@ public class MultipleLinearRegression {
         return matX;
     }
 
+<<<<<<< HEAD
     // Membuat matriks Y untuk regresi kuadratik berganda
     public static double[] toMatrixYRKB(Matriks file) {
         int num = file.col - 1;
         double[] matY = new double[1+num];
+=======
+    // Fungsi untuk memisahkan Y dari sampel
+    public static double[] pisahkanNilaiY(double[][] titikSampel) {
+        int n = titikSampel.length;
+        double[] Y = new double[n];
+        for (int i = 0; i < n; i++) {
+            Y[i] = titikSampel[i][1];  // Ambil nilai y dari tiap sampel
+        }
+        return Y;
+    }
+
+    // Fungsi regresi linear menggunakan Gauss
+    public static double[] regresiLinearGauss(double[][] titikSampel) {
+        double [][] X = ubahInputMenjadiMatriks(titikSampel);
+        double[] Y = pisahkanNilaiY(titikSampel);
+        SPL solver = new SPL();
+        solver.gauss(X, Y);  // Menggunakan eliminasi Gauss untuk SPL
+        return Y;  // Y berisi koefisien β setelah eliminasi Gauss
+    }
+
+
+    // Fungsi untuk prediksi nilai y baru berdasarkan x baru
+    public static double prediksi(double[] beta, double xBaru) {
+        return beta[0] + beta[1] * xBaru;  
+    }
+
+    public static String StringHasil (double[] hasilReg, double pred, double xBaru){
+        StringBuilder buffer = new StringBuilder(); // Membuat string baru
+        buffer.append("f(x) = "+hasilReg[0]+" + "+hasilReg[1]+" x, f("+xBaru+") = "+pred);
+        return buffer.toString();
+
+    }
+
+    // public static void main(String[] args) {
+    //     // Titik-titik sampel yang diketahui (x, y)
+    //     double[][] titikSampel = {
+    //         {1, 2},  // x = 1, y = 2
+    //         {2, 4},  // x = 2, y = 4
+    //         {4, 5}   // x = 4, y = 5
+    //     };
+
+    //     // Nilai-nilai x yang ingin diprediksi
+    //     double[] xBaru = {5, 6, 7};
+
+    //     // Ubah input menjadi matriks X dan vektor Y
+    //     double[][] X = ubahInputMenjadiMatriks(titikSampel);
+    //     double[] Y = pisahkanNilaiY(titikSampel);
+
+    //     // Hitung koefisien regresi menggunakan eliminasi Gauss
+    //     double[] betaGauss = regresiLinearGauss(X, Y);
+    //     System.out.println("Persamaan regresi (Gauss): y = " + betaGauss[0] + " + " + betaGauss[1] + "x");
+
+    //     // Hitung koefisien regresi menggunakan eliminasi Gauss-Jordan
+    //     double[] betaGaussJordan = regresiLinearGaussJordan(X, Y);
+    //     System.out.println("Persamaan regresi (Gauss-Jordan): y = " + betaGaussJordan[0] + " + " + betaGaussJordan[1] + "x");
+
+    //     // Hitung koefisien regresi menggunakan metode Cramer
+    //     double[] betaCramer = regresiLinearCramer(X, Y);
+    //     System.out.println("Persamaan regresi (Cramer): y = " + betaCramer[0] + " + " + betaCramer[1] + "x");
+
+    //     // Hitung koefisien regresi menggunakan metode Invers
+    //     double[] betaInverse = regresiLinearInverse(X, Y);
+    //     System.out.println("Persamaan regresi (Invers): y = " + betaInverse[0] + " + " + betaInverse[1] + "x");
+
+    //     // Prediksi nilai y untuk nilai x baru
+    //     for (double x : xBaru) {
+    //         double yPrediksi = prediksi(betaGauss, x);
+    //         System.out.println("Nilai prediksi y untuk x = " + x + " (Gauss): " + yPrediksi);
+>>>>>>> d3951f12025a156b884f1a589bf582206439ef30
         
         // Mengisi matriks Y dari sampel
         for (int i = 0; i < file.row; i++) {
